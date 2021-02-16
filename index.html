@@ -1,6 +1,76 @@
 <html>
-<body>
-<h1>Placeholder index file</h1>
-<h2>This will be replaced by the website report once it is finalised</h2>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>RMIT COSC2196 - Introduction to IT - Assignment 3</title>
+<style>
+body {
+  background:black;
+  margin:0;
+  text-align:center;
+}
+canvas {
+  position:relative;
+  z-index:3;
+}
+</style>
+  </head>
+  <body>
+    <a href="javascript:left();" id="left" style="position:fixed; left:0; top:0; width:50%; height:100%; z-index:4; opacity:0.3; transform: scaleX(-1);"></a>
+    <a href="javascript:right();" id="right" style="position:fixed; right:0; top:0; width:50%; height:100%; z-index:4; opacity:0.3;"></a>
+    <canvas style="background:white;"></canvas>
+    </div>
+  </body>
+  <script src="https://unpkg.com/pdfjs-dist@latest/build/pdf.min.js"></script>
+  <script>
+    let pdf=null;
+    let pages=0;
+    let currentPage=0;
+    pdfjsLib.getDocument("./A2.pdf").promise.then(pdf_ => {
+          pdf=pdf_;
+          pages=pdf.numPages;
+
+          showPage();
+        });
+    function showPage() {
+          pdf.getPage(currentPage+1).then(page => {
+                let viewport = page.getViewport({scale:1.5});
+                let canvas = document.querySelector('canvas');
+                let context = canvas.getContext("2d");
+                canvas.height=viewport.height;
+                canvas.width=viewport.width;
+                
+                page.render({canvasContext:context, viewport:viewport});
+
+                let width=(document.body.clientWidth-canvas.width)/2;
+                let height=window.innerHeight;
+                let svg="<svg viewBox='0 0 50 50' width='"+width+"' height='"+height+"' xmlns='http://www.w3.org/2000/svg'>\n";
+                svg+="<polygon fill='white' points='15.5,0 14.1,1.4, 42.4,29.7, 14.15,58, 15.56,59.4 45.27,29.7' />\n";
+                //svg+="<path stroke='white' d='M0,0 L50,25, L0,50' />\n";
+                svg+='</svg>';
+                document.querySelector('#right').style.background='url(data:image/svg+xml;base64,'+btoa(svg)+')';
+
+                svg="<svg viewBox='0 0 50 50' width='"+width+"' height='"+height+"' xmlns='http://www.w3.org/2000/svg'>\n";
+                //svg+="<polygon fill='white' points='15.5,0 14.1,1.4, 42.4,29.7, 14.15,58, 15.56,59.4 45.27,29.7' />\n";
+                svg+="<polygon fill='white' points='15.5,0 14.1,1.4, 42.4,29.7, 14.15,58, 15.56,59.4 45.27,29.7' />\n";
+                //svg+="<path stroke='white' d='M50,50 L0,25, L50,0' />\n";
+                svg+='</svg>';
+                document.querySelector('#left').style.background='url(data:image/svg+xml;base64,'+btoa(svg)+')';
+              });
+        }
+    function left() {
+          if(currentPage>0) {
+                currentPage--;
+                showPage();
+              }
+        }
+    function right() {
+          if(currentPage<pages-1) {
+                currentPage++;
+                showPage();
+              }
+        }
+
+
+  </script>
 </html>
