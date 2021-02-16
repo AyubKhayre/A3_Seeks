@@ -21,8 +21,8 @@ canvas {
       Click on the right side of the screen to move forward a page<br />
       Click anywhere to remove this instruction overlay
     </a>
-    <a href="javascript:left();" id="left" style="position:fixed; left:0; top:0; width:50%; height:100%; z-index:4; opacity:0.3; transform: scaleX(-1);"></a>
-    <a href="javascript:right();" id="right" style="position:fixed; right:0; top:0; width:50%; height:100%; z-index:4; opacity:0.3;"></a>
+    <a href="javascript:left();" id="left" style="position:fixed; left:0; top:0; width:50%; height:100%; z-index:4; opacity:0.3; transform: scaleX(-1); background-position:right; background-repeat:no-repeat;"></a>
+    <a href="javascript:right();" id="right" style="position:fixed; right:0; top:0; width:50%; height:100%; z-index:4; opacity:0.3; background-position:right; background-repeat:no-repeat;"></a>
     <canvas style="background:white; width:892px; height:1262px;"></canvas>
     </div>
   </body>
@@ -70,14 +70,14 @@ canvas {
                 svg+="<polygon fill='white' points='15.5,0 14.1,1.4, 42.4,29.7, 14.15,58, 15.56,59.4 45.27,29.7' />\n";
                 //svg+="<path stroke='white' d='M0,0 L50,25, L0,50' />\n";
                 svg+='</svg>';
-                document.querySelector('#right').style.background='url(data:image/svg+xml;base64,'+btoa(svg)+')';
+                document.querySelector('#right').style.backgroundImage='url(data:image/svg+xml;base64,'+btoa(svg)+')';
 
                 svg="<svg viewBox='0 0 50 50' width='"+width+"' height='"+height+"' xmlns='http://www.w3.org/2000/svg'>\n";
                 //svg+="<polygon fill='white' points='15.5,0 14.1,1.4, 42.4,29.7, 14.15,58, 15.56,59.4 45.27,29.7' />\n";
                 svg+="<polygon fill='white' points='15.5,0 14.1,1.4, 42.4,29.7, 14.15,58, 15.56,59.4 45.27,29.7' />\n";
                 //svg+="<path stroke='white' d='M50,50 L0,25, L50,0' />\n";
                 svg+='</svg>';
-                document.querySelector('#left').style.background='url(data:image/svg+xml;base64,'+btoa(svg)+')';
+                document.querySelector('#left').style.backgroundImage='url(data:image/svg+xml;base64,'+btoa(svg)+')';
               });
         }
   </script>
