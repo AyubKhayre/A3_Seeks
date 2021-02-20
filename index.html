@@ -55,6 +55,7 @@ canvas {
           showPage();
         });
     function showPage() {
+          window.scrollTo(0,0);
           pdf.getPage(currentPage+1).then(page => {
                 let viewport = page.getViewport({scale:1.5});
                 let canvas = document.querySelector('canvas');
